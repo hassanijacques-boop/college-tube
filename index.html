@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Collège Tube — toutes les vidéos pour réviser, de la 6e à la 3e</title>
+<meta name="description" content="La bibliothèque de vidéos pour réviser le programme du collège, de la 6e à la 3e. Classée à la main, matière par matière. Zéro algorithme.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF6EC; --paper2:#F4ECDC; --ink:#16213C; --ink2:#46506B;
+  --line:#E2D6BF; --card:#FFFDF8;
+  --fr:#2F4BD8; --ma:#23618F; --sc:#31825A; --hi:#9B5320; --ge:#1F7A6C;
+  --em:#65489B; --an:#B93A73; --ar:#C98A12; --nu:#37496B;
+  --shadow:4px 4px 0 var(--ink);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;
+  background-image:radial-gradient(#00000008 1px, transparent 1px);background-size:22px 22px}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font-family:inherit}
+
+/* ---------- TOP BAR ---------- */
+.top{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:18px;padding:12px 22px;
+  background:rgba(251,246,236,.92);backdrop-filter:blur(10px);border-bottom:2px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:19px;letter-spacing:-.02em;white-space:nowrap}
+.brand .mark{width:34px;height:34px;border:2px solid var(--ink);border-radius:9px;display:grid;place-items:center;background:var(--ink);color:var(--paper);font-size:17px;box-shadow:2px 2px 0 var(--fr)}
+.brand small{display:block;font-family:Inter,sans-serif;font-weight:500;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+.search{flex:1;min-width:0;max-width:430px;position:relative}
+.search input{width:100%;padding:10px 14px 10px 38px;border:2px solid var(--ink);border-radius:999px;background:var(--card);
+  font-size:14.5px;color:var(--ink);outline:none;transition:box-shadow .15s}
+.search input:focus{box-shadow:3px 3px 0 var(--ma)}
+.search::before{content:"🔍";position:absolute;left:12px;top:50%;transform:translateY(-52%);font-size:14px;opacity:.65;pointer-events:none}
+.noalgo{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink2)}
+.noalgo b{color:var(--fr)}
+
+/* ---------- HERO ---------- */
+.hero{padding:56px 22px 34px;max-width:1240px;margin:0 auto;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--ink);color:var(--paper);padding:6px 13px;border-radius:999px}
+.hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(38px,6.4vw,74px);line-height:.98;letter-spacing:-.045em;margin:20px 0 0;font-weight:800;max-width:15ch}
+.hero h1 em{font-style:normal;color:var(--fr);position:relative;display:inline-block;
+  background-image:linear-gradient(180deg,transparent 58%,rgba(242,183,5,.55) 58%,rgba(242,183,5,.55) 88%,transparent 88%)}
+.hero p.lead{font-size:17.5px;max-width:56ch;color:var(--ink2);margin:20px 0 0}
+.hero .hand{font-family:Caveat,cursive;font-size:23px;color:var(--ma);transform:rotate(-2deg);display:inline-block;margin-top:16px}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.stat{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:10px 16px;box-shadow:3px 3px 0 var(--ink)}
+.stat b{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;letter-spacing:-.03em;display:block;line-height:1}
+.stat span{font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink2);font-weight:600}
+
+/* ---------- FILTERS ---------- */
+.filters{position:sticky;top:63px;z-index:50;background:rgba(244,236,220,.96);backdrop-filter:blur(8px);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.levels,.mats{max-width:1240px;margin:0 auto;padding:0 22px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.levels::-webkit-scrollbar,.mats::-webkit-scrollbar{display:none}
+.levels{padding-top:10px;padding-bottom:8px}
+.mats{padding-bottom:10px}
+.lvbtn{flex:0 0 auto;border:2px solid var(--ink);background:var(--card);border-radius:11px;padding:7px 16px;font-weight:700;font-size:14.5px;cursor:pointer;
+  box-shadow:2px 2px 0 var(--ink);transition:.12s;display:flex;flex-direction:column;align-items:center;min-width:64px}
+.lvbtn small{font-size:9.5px;font-weight:600;letter-spacing:.06em;color:var(--ink2);text-transform:uppercase}
+.lvbtn:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+.lvbtn.on{background:var(--ink);color:var(--paper)}
+.lvbtn.on small{color:#C9CFE0}
+.matbtn{flex:0 0 auto;border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink2);
+  display:flex;align-items:center;gap:6px}
+.matbtn .dot{width:8px;height:8px;border-radius:50%}
+.matbtn.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.matbtn.on .dot{box-shadow:0 0 0 2px rgba(255,255,255,.35)}
+
+/* ---------- CONTENT ---------- */
+main{max-width:1240px;margin:0 auto;padding:8px 22px 60px}
+.lvhead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:34px 0 6px;flex-wrap:wrap}
+.lvhead h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,3.4vw,38px);letter-spacing:-.035em;margin:0}
+.lvhead .sub{color:var(--ink2);font-size:14px;max-width:62ch;margin:4px 0 0}
+.progwrap{min-width:190px}
+.progwrap .t{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);display:flex;justify-content:space-between;gap:10px}
+.bar{height:9px;border:1.5px solid var(--ink);border-radius:999px;background:var(--card);overflow:hidden;margin-top:5px}
+.bar i{display:block;height:100%;background:var(--sc);width:0;transition:width .3s}
+
+.matsec{margin-top:38px}
+.matsec>header{display:flex;align-items:center;gap:12px;padding-bottom:10px;border-bottom:2.5px solid var(--ink);margin-bottom:6px;flex-wrap:wrap}
+.matsec .ico{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:19px;border:2px solid var(--ink);color:#fff;box-shadow:2px 2px 0 var(--ink)}
+.matsec h3{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;margin:0;letter-spacing:-.02em}
+.matsec .att{font-size:13.5px;color:var(--ink2);margin:2px 0 0;max-width:70ch}
+.matsec .n{margin-left:auto;font-size:12px;font-weight:700;color:var(--ink2);background:var(--paper2);border:1.5px solid var(--line);padding:4px 10px;border-radius:999px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:16px;margin-top:16px}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:15px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;
+  transition:transform .14s,box-shadow .14s;box-shadow:2px 2px 0 rgba(22,33,60,.16)}
+.card:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.card.seen{opacity:.62}
+.card.seen .thumb::after{content:"VU";position:absolute;inset:0;display:grid;place-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+  font-size:26px;letter-spacing:.2em;color:#fff;background:rgba(22,33,60,.55)}
+.thumb{position:relative;aspect-ratio:16/9;background:var(--paper2);overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:30px}
+.dur{position:absolute;right:7px;bottom:7px;background:var(--ink);color:var(--paper);font-size:11px;font-weight:700;padding:2px 6px;border-radius:5px;letter-spacing:.02em}
+.play{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:.15s;background:linear-gradient(0deg,rgba(22,33,60,.35),rgba(22,33,60,.05))}
+.card:hover .play{opacity:1}
+.play span{width:48px;height:48px;border-radius:50%;background:var(--paper);color:var(--ink);display:grid;place-items:center;font-size:17px;padding-left:4px;border:2px solid var(--ink)}
+.seenbtn{position:absolute;left:7px;top:7px;width:27px;height:27px;border-radius:50%;border:2px solid #fff;background:rgba(22,33,60,.55);color:#fff;font-size:13px;
+  cursor:pointer;display:grid;place-items:center;z-index:3}
+.seenbtn:hover{background:var(--sc);border-color:var(--sc)}
+.card.seen .seenbtn{background:var(--sc);border-color:var(--sc)}
+.body{padding:11px 13px 13px;display:flex;flex-direction:column;gap:5px;flex:1}
+.thm{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--ink2)}
+.card h4{font-size:14.5px;line-height:1.32;margin:0;font-weight:600;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.meta{margin-top:auto;display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink2);padding-top:6px}
+.meta .ch{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%}
+.meta .lvls{margin-left:auto;display:flex;gap:3px}
+.meta .lvls i{font-style:normal;font-size:9.5px;font-weight:700;border:1px solid var(--line);border-radius:4px;padding:1px 4px;background:var(--paper2)}
+.empty{padding:60px 0;text-align:center;color:var(--ink2)}
+.empty b{display:block;font-family:'Bricolage Grotesque',sans-serif;font-size:22px;color:var(--ink)}
+
+/* ---------- PROGRAMME ---------- */
+.panel{margin:70px 0 0;border:2.5px solid var(--ink);border-radius:20px;background:var(--card);overflow:hidden;box-shadow:6px 6px 0 var(--ink)}
+.panel>header{padding:24px 26px 18px;border-bottom:2px solid var(--ink);background:var(--paper2)}
+.panel>header .kicker{background:var(--fr);color:#fff}
+.panel>header h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(24px,3.2vw,34px);margin:12px 0 4px;letter-spacing:-.03em}
+.panel>header p{margin:0;color:var(--ink2);font-size:14.5px;max-width:75ch}
+.progtable{width:100%;border-collapse:collapse;font-size:14px}
+.progtable th{text-align:left;padding:11px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);border-bottom:1.5px solid var(--line);background:var(--paper)}
+.progtable td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.progtable tr:last-child td{border-bottom:none}
+.progtable td.m{font-weight:700;white-space:nowrap}
+.progtable ul{margin:0;padding-left:16px}
+.progtable li{margin:2px 0}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--paper2);border:1px solid var(--line)}
+
+/* ---------- CHAINES ---------- */
+.chans{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px;padding:22px 26px 26px}
+.chan{border:2px solid var(--ink);border-radius:13px;padding:13px 15px;background:var(--card);text-decoration:none;transition:.14s;display:block}
+.chan:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.chan b{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;display:block;letter-spacing:-.02em}
+.chan span{font-size:12.5px;color:var(--ink2);display:block;margin-top:3px}
+.chan em{font-style:normal;font-size:11px;font-weight:700;color:var(--ma);letter-spacing:.05em;text-transform:uppercase}
+
+/* ---------- METHODE ---------- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;padding:22px 26px 26px}
+.step{border-left:4px solid var(--ar);padding:4px 0 4px 14px}
+.step b{font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;display:block;letter-spacing:-.01em}
+.step span{font-size:13.5px;color:var(--ink2)}
+
+/* ---------- MODAL ---------- */
+.modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:18px;background:rgba(16,22,40,.82);backdrop-filter:blur(6px)}
+.modal.open{display:grid}
+.mbox{width:min(920px,100%);background:var(--paper);border:3px solid var(--ink);border-radius:18px;overflow:hidden;box-shadow:8px 8px 0 rgba(0,0,0,.35);max-height:94vh;display:flex;flex-direction:column}
+.mtop{display:flex;align-items:center;gap:12px;padding:11px 15px;border-bottom:2px solid var(--ink);background:var(--paper2)}
+.mtop .t{font-weight:700;font-size:14.5px;line-height:1.25;flex:1;letter-spacing:-.01em}
+.mtop button{border:2px solid var(--ink);background:var(--card);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:15px;font-weight:700}
+.mtop button:hover{background:var(--ink);color:var(--paper)}
+.video{aspect-ratio:16/9;background:#000}
+.video iframe{width:100%;height:100%;border:0;display:block}
+.mbot{display:flex;align-items:center;gap:12px;padding:11px 15px;flex-wrap:wrap;font-size:13px;color:var(--ink2)}
+.mbot a{font-weight:600;color:var(--ma)}
+.mbot .seen2{margin-left:auto;border:2px solid var(--ink);border-radius:8px;padding:6px 12px;background:var(--card);cursor:pointer;font-weight:700;font-size:12.5px}
+.mbot .seen2.on{background:var(--sc);color:#fff;border-color:var(--sc)}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:2px solid var(--ink);background:var(--paper2);padding:30px 22px;font-size:13px;color:var(--ink2)}
+footer .inner{max-width:1240px;margin:0 auto;display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between}
+footer b{color:var(--ink)}
+
+@media(max-width:760px){
+  .filters{top:57px}
+  .noalgo{display:none}
+  .top{padding:9px 14px;gap:10px}
+  .brand{font-size:15.5px;letter-spacing:-.03em}
+  .brand small{display:none}
+  .brand .mark{width:29px;height:29px;font-size:14px;border-radius:8px}
+  .search input{font-size:13px;padding:8px 10px 8px 30px}
+  .search::before{left:10px;font-size:12px}
+  .hero{padding-top:34px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+  .card h4{font-size:13px}
+  .panel{box-shadow:4px 4px 0 var(--ink);border-radius:14px}
+  .progtable{font-size:12.5px}
+  .progtable td,.progtable th{padding:9px 10px}
+}
+@media print{
+  .top,.filters,.hero .stats,.play,.seenbtn,.modal,footer{display:none!important}
+  body{background:#fff}
+  .card{break-inside:avoid;box-shadow:none;border:1px solid #999}
+  .grid{grid-template-columns:repeat(3,1fr)}
+  a{text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand"><span class="mark">C</span><span>COLLÈGE TUBE<small>6e → 3e · à la main</small></span></div>
+  <div class="search"><input id="q" type="search" placeholder="Chercher : Pythagore, le prétérit, la Guerre froide…" autocomplete="off"></div>
+  <div class="noalgo"><span>Classement <b>100 % humain</b></span> · <span id="seenPct">0 % vu</span></div>
+</header>
+
+<section class="hero">
+  <div class="kicker">📺 Le programme du collège, vidéo par vidéo</div>
+  <h1>Toutes les vidéos pour réviser. <em>Classées à la main.</em></h1>
+  <p class="lead">Pas de fil de recommandation, pas de Shorts qui défilent, pas de « tu pourrais aussi aimer ». Chaque vidéo répond à <strong>un point précis du programme de la 6e à la 3e</strong> — et elle est rangée à sa place, par matière et par niveau.</p>
+  <div class="hand">→ la vidéo explique, le cahier fait le reste.</div>
+  <div class="stats">
+    <div class="stat"><b id="sVid">—</b><span>vidéos vérifiées</span></div>
+    <div class="stat"><b id="sCh">—</b><span>chaînes retenues</span></div>
+    <div class="stat"><b id="sTh">—</b><span>points du programme</span></div>
+    <div class="stat"><b>0</b><span>algorithme</span></div>
+  </div>
+</section>
+
+<div class="filters">
+  <div class="levels" id="levels"></div>
+  <div class="mats" id="mats"></div>
+</div>
+
+<main>
+  <div class="lvhead">
+    <div>
+      <h2 id="lvTitle">CP</h2>
+      <p class="sub" id="lvSub"></p>
+    </div>
+    <div class="progwrap">
+      <div class="t"><span>Vidéos vues</span><span id="progTxt">0 / 0</span></div>
+      <div class="bar"><i id="progBar"></i></div>
+    </div>
+  </div>
+  <div id="list"></div>
+
+  <section class="panel" id="programme">
+    <header>
+      <div class="kicker">📌 Le programme officiel</div>
+      <h2 id="progH">Ce que l'élève doit savoir en fin de 6e</h2>
+      <p id="progP">Les domaines et les attendus, matière par matière. C'est la carte qui permet de savoir <em>où</em> on en est — et quelle vidéo regarder ensuite.</p>
+    </header>
+    <div id="progBody"></div>
+  </section>
+
+  <section class="panel" id="chaines">
+    <header>
+      <div class="kicker">🎬 Les chaînes</div>
+      <h2>Les chaînes qui font le travail</h2>
+      <p>Toutes gratuites, toutes en français. Elles sont citées sur chaque carte : on sait toujours qui parle à l'enfant.</p>
+    </header>
+    <div class="chans" id="chans"></div>
+  </section>
+
+  <section class="panel" id="methode">
+    <header>
+      <div class="kicker">⏱️ La méthode</div>
+      <h2>20 minutes par jour, et ça suffit</h2>
+      <p>Au collège, une vidéo ne remplace ni le cours ni l'exercice : elle sert à <strong>débloquer</strong> un point précis. Voilà l'ordre qui marche, à la maison comme en remédiation.</p>
+    </header>
+    <div class="steps">
+      <div class="step"><b>1. On cible</b><span>La vidéo se regarde parce qu'un exercice a bloqué — pas « pour réviser ».</span></div>
+      <div class="step"><b>2. On regarde avec un crayon</b><span>On note la règle et l'exemple, pas la vidéo entière.</span></div>
+      <div class="step"><b>3. On refait l'exemple seul</b><span>Sans regarder : si ça bloque, retour arrière de 30 secondes.</span></div>
+      <div class="step"><b>4. On refait l'exercice du cours</b><span>Celui qui avait coincé. C'est lui qui dit si c'est acquis.</span></div>
+      <div class="step"><b>5. On coche, et on y revient</b><span>La case ✓ garde la trace. Révision à J+3 et J+7, sinon ça s'efface.</span></div>
+    </div>
+    <div style="padding:0 26px 26px">
+      <div class="callout" style="border-left:4px solid var(--fr);padding:6px 0 6px 14px;color:var(--ink2);font-size:13.5px">
+        <strong style="color:var(--ink)">Ce qui n'est pas ici, et pourquoi.</strong> L'EPS ne s'apprend pas devant un écran. En langues, une vidéo amorce mais ne remplace pas l'oral. Et pour le brevet, aucune vidéo ne remplace les annales : regarde la méthode, puis fais un sujet chronométré.
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="inner">
+    <div><b>Collège Tube</b> — bibliothèque de vidéos pour le collège, classée à la main.<br>Programme du collège (cycle 3 et cycle 4), d'après les programmes officiels en vigueur.<br><span style="font-size:12px">Version 1 — 7 novembre 2026 · 264 liens testés un par un.</span></div>
+    <div>Les vidéos restent la propriété de leurs auteurs.<br>Les liens ouvrent YouTube ; aucune donnée n'est collectée.<br>Progression enregistrée uniquement sur cet appareil.</div>
+  </div>
+</footer>
+
+<div class="modal" id="modal">
+  <div class="mbox">
+    <div class="mtop"><div class="t" id="mTitle"></div><button id="mClose" aria-label="Fermer">✕</button></div>
+    <div class="video"><iframe id="mFrame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <div class="mbot">
+      <span id="mMeta"></span>
+      <a id="mLink" href="#" target="_blank" rel="noopener">Ouvrir sur YouTube ↗</a>
+      <button class="seen2" id="mSeen">✓ Marquer comme vue</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const VIDEOS = [{"i":"DAq1alCVN9U","t":"Le présent simple","c":"Les Bons Profs","d":126,"m":"Anglais","th":"Le présent","lv":["6e"]},{"i":"LTDjVjNSHZQ","t":"Le présent simple en anglais","c":"Apprendre l'anglais avec les Tutos de Huito","d":197,"m":"Anglais","th":"Le présent","lv":["6e"]},{"i":"KAUiTLnLs1w","t":"se présenter en anglais","c":"Yam’s Teaching","d":1226,"m":"Anglais","th":"Se présenter","lv":["6e"]},{"i":"M0WyzsHnKgs","t":"Le collégien : les règles et les représentants","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":487,"m":"EMC","th":"Vivre au collège","lv":["6e"]},{"i":"VagN-JRXryE","t":"Le fonctionnement du collège","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":225,"m":"EMC","th":"Vivre au collège","lv":["6e"]},{"i":"bql4_4PPguM","t":"Devenir collégien","c":"Profluby","d":124,"m":"EMC","th":"Vivre au collège","lv":["6e"]},{"i":"1XG6A8G-Yac","t":"Le présent de l'indicatif","c":"Les Bons Profs","d":389,"m":"Français","th":"Conjugaison","lv":["6e"]},{"i":"lRyGfvLxr5c","t":"Le présent de l'indicatif : les cas particuliers","c":"Chemin de traverse- M.Chemin","d":192,"m":"Français","th":"Conjugaison","lv":["6e"]},{"i":"kogGSP3xFVw","t":"Apprendre le passé simple","c":"Les rouages du français","d":429,"m":"Français","th":"Conjugaison","lv":["6e"]},{"i":"plK3w243yZY","t":"TOUTES LES CLASSES GRAMMATICALES : Comment les identifier ?","c":"L'ardoise","d":471,"m":"Français","th":"Grammaire","lv":["6e"]},{"i":"yl8ROX7Ltzg","t":"CLASSES GRAMMATICALES : ASTUCES pour identifier la nature des mots","c":"Un Cours de 5 Minutes","d":349,"m":"Français","th":"Grammaire","lv":["6e"]},{"i":"I4ZrutrQ3bM","t":"Les fonctions COD et COI","c":"Maï Lan Study","d":356,"m":"Français","th":"Grammaire","lv":["6e"]},{"i":"fJE54HYqAug","t":"Nature et fonction (6e) : la phrase simple, sujet, COD, COI expliqués","c":"ProgresSchool","d":543,"m":"Français","th":"Grammaire","lv":["6e"]},{"i":"pbbWYGRNNvk","t":"Les récits d’aventures","c":"Les Bons Profs","d":238,"m":"Français","th":"Le récit","lv":["6e"]},{"i":"vt94SzY0Mew","t":"Lire et analyser deux récits d'aventures","c":"Aurélien Giraud","d":804,"m":"Français","th":"Le récit","lv":["6e"]},{"i":"BPok95_UBvs","t":"Jean de La Fontaine","c":"Quelle Histoire","d":431,"m":"Français","th":"Le récit","lv":["6e"]},{"i":"xYMgdW7-s9E","t":"Le Corbeau et le Renard - les Fables de La Fontaine en dessin animé","c":"miwiboo","d":127,"m":"Français","th":"Le récit","lv":["6e"]},{"i":"G9BC2Lta2cA","t":"Qu’est-ce qu’un conte merveilleux ?","c":"Éditions Lelivrescolaire.fr","d":217,"m":"Français","th":"Le récit","lv":["6e"]},{"i":"fCpX1pZddfo","t":"Le merveilleux dans les contes","c":"Les Bons Profs","d":272,"m":"Français","th":"Le récit","lv":["6e"]},{"i":"AcKDIxji5dk","t":"L'Histoire de la Mythologie Grecque expliquée","c":"Absolute Histoire et Civilisations","d":1179,"m":"Français","th":"Le récit","lv":["6e"]},{"i":"CQaAH-Z-esM","t":"L'origine des dieux olympiens","c":"Histoire et Mythologie en BD","d":266,"m":"Français","th":"Le récit","lv":["6e"]},{"i":"azXEfTc2NVQ","t":"Rédiger un récit : la méthode","c":"Maï Lan Study","d":323,"m":"Français","th":"Écriture","lv":["6e"]},{"i":"j34HnxVW8zo","t":"Analyser un Récit : avec le bon vocabulaire","c":"Un Cours de 5 Minutes","d":342,"m":"Français","th":"Écriture","lv":["6e"]},{"i":"GkvebJu-UXQ","t":"C'est quoi une métropole ?","c":"Profluby","d":80,"m":"Géographie","th":"Habiter","lv":["6e"]},{"i":"D7WjLNdHe5A","t":"Habiter une Métropole","c":"Esprit Clair","d":368,"m":"Géographie","th":"Habiter","lv":["6e"]},{"i":"l38RxGNI36U","t":"Habiter un espace de faible densité","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":286,"m":"Géographie","th":"Habiter","lv":["6e"]},{"i":"hRcajzb2jJM","t":"Habiter un espace agricole de faible densité","c":"Éditions Lelivrescolaire.fr","d":144,"m":"Géographie","th":"Habiter","lv":["6e"]},{"i":"T61D-OcLc78","t":"Habiter les littoraux","c":"SchoolMouv","d":86,"m":"Géographie","th":"Habiter","lv":["6e"]},{"i":"gSVokFNJK_o","t":"Habiter un littoral","c":"Éditions Lelivrescolaire.fr","d":142,"m":"Géographie","th":"Habiter","lv":["6e"]},{"i":"9xC2gIscI0k","t":"Les débuts de l'humanité","c":"Éditions Lelivrescolaire.fr","d":146,"m":"Histoire","th":"La longue histoire","lv":["6e"]},{"i":"DC5Q8EVzps4","t":"La révolution néolithique","c":"Éditions Lelivrescolaire.fr","d":150,"m":"Histoire","th":"La longue histoire","lv":["6e"]},{"i":"ry9jmUzfQtU","t":"Où et quand l'écriture est-elle née?","c":"C'est pas sorcier","d":51,"m":"Histoire","th":"La longue histoire","lv":["6e"]},{"i":"q2KAkl2lfZk","t":"L’écriture cunéiforme I Les écritures en Mésopotamie","c":"Bibliothèque nationale de France BnF","d":103,"m":"Histoire","th":"La longue histoire","lv":["6e"]},{"i":"bJHvEPyicLY","t":"C'est quoi une cité grecque ?","c":"Profluby","d":133,"m":"Histoire","th":"Méditerranée antique","lv":["6e"]},{"i":"49M6GmYUvhw","t":"Athènes, la cité grecque","c":"Yannick Rub","d":205,"m":"Histoire","th":"Méditerranée antique","lv":["6e"]},{"i":"xlBltxDW7gk","t":"L'Empire romain","c":"Éditions Lelivrescolaire.fr","d":152,"m":"Histoire","th":"Méditerranée antique","lv":["6e"]},{"i":"gT51wl1p5eI","t":"Rome, du mythe à l'histoire","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":304,"m":"Histoire","th":"Méditerranée antique","lv":["6e"]},{"i":"JW_sg2A2m7M","t":"Les débuts du judaïsme","c":"La Classe d'Histoire","d":301,"m":"Histoire","th":"Religions","lv":["6e"]},{"i":"eM8Wcg98h64","t":"Les débuts du judaïsme et du christianisme","c":"Maï Lan Study","d":317,"m":"Histoire","th":"Religions","lv":["6e"]},{"i":"BaW1TnRliMc","t":"Le monde de l'Islam","c":"Les Bons Profs","d":430,"m":"Histoire","th":"Religions","lv":["6e"]},{"i":"RI_carTOJNA","t":"Naissance et expansion de l'islam","c":"La Classe d'Histoire","d":236,"m":"Histoire","th":"Religions","lv":["6e"]},{"i":"2Ocfhucc58g","t":"Poser une division euclidienne (avec reste)","c":"Yvan Monka","d":671,"m":"Maths","th":"Calcul","lv":["6e"]},{"i":"QgjbpX_kciA","t":"Reconnaître la proportionnalité","c":"Yvan Monka","d":439,"m":"Maths","th":"Calcul","lv":["6e"]},{"i":"2U8Sgwnmy9g","t":"LE COURS : Proportionnalité","c":"Yvan Monka","d":1348,"m":"Maths","th":"Calcul","lv":["6e"]},{"i":"wNk5XKwEZDw","t":"Calculer un périmètre","c":"Yvan Monka","d":208,"m":"Maths","th":"Géométrie","lv":["6e"]},{"i":"zfF9oEwy0G0","t":"Calculer le périmètre d'une figure","c":"Yvan Monka","d":311,"m":"Maths","th":"Géométrie","lv":["6e"]},{"i":"sRcgsiPeIq4","t":"Construire le symétrique d'une figure (symétrie axiale)","c":"Yvan Monka","d":334,"m":"Maths","th":"Géométrie","lv":["6e"]},{"i":"ydDOYEfWsoQ","t":"LE COURS : Symétrie axiale","c":"Yvan Monka","d":875,"m":"Maths","th":"Géométrie","lv":["6e"]},{"i":"FlWajs3P4v4","t":"Les angles","c":"Droles2Maths","d":1123,"m":"Maths","th":"Géométrie","lv":["6e"]},{"i":"ZZeFXFv55fY","t":"LE COURS : Les angles","c":"Yvan Monka","d":1736,"m":"Maths","th":"Géométrie","lv":["6e"]},{"i":"aPUB02jOYaY","t":"Patron du pavé droit - Solides de l'espace","c":"Les Bons Profs","d":311,"m":"Maths","th":"Géométrie","lv":["6e"]},{"i":"4dQboiziH1g","t":"Pavé droit et perspective cavalière - Solides de l'espace","c":"Les Bons Profs","d":275,"m":"Maths","th":"Géométrie","lv":["6e"]},{"i":"lzsYQYvEKss","t":"Numération & nombres décimaux","c":"Les Bons Profs","d":208,"m":"Maths","th":"Numération","lv":["6e"]},{"i":"LOp-LK2XQ5A","t":"LE COURS : Nombres entiers et décimaux","c":"Yvan Monka","d":1734,"m":"Maths","th":"Numération","lv":["6e"]},{"i":"mAsU47aPDXk","t":"Additionner des fractions ✅ exemples faciles","c":"Paul Olivier","d":234,"m":"Maths","th":"Numération","lv":["6e"]},{"i":"ZoJiDjAPPJc","t":"Les conversions d'énergie","c":"Paul Olivier","d":223,"m":"Physique-Chimie","th":"L'énergie","lv":["6e"]},{"i":"IqXAeWoCv5A","t":"Les 7 formes d'énergie","c":"Paul Olivier","d":154,"m":"Physique-Chimie","th":"L'énergie","lv":["6e"]},{"i":"hkL7NC9-Enk","t":"LA MATIÈRE : conducteur, isolant, changement d'état","c":"Paul Olivier","d":212,"m":"Physique-Chimie","th":"La matière","lv":["6e"]},{"i":"jquO9Ryf5ks","t":"MASSE et VOLUME : comment les mesurer ?","c":"Paul Olivier","d":211,"m":"Physique-Chimie","th":"La matière","lv":["6e"]},{"i":"yd7VU-5pJxg","t":"LES MÉLANGES ✅ Soluble ? Miscible ? Saturation ?","c":"Paul Olivier","d":238,"m":"Physique-Chimie","th":"La matière","lv":["6e"]},{"i":"0s52QOJgnPc","t":"MOUVEMENT ✅ Vitesse et trajectoire","c":"Paul Olivier","d":218,"m":"Physique-Chimie","th":"Le mouvement","lv":["6e"]},{"i":"F8qnKxSbHIA","t":"Mouvements et vitesse","c":"Les Bons Profs","d":222,"m":"Physique-Chimie","th":"Le mouvement","lv":["6e"]},{"i":"9cF-Hgyg4Dk","t":"La cellule, unité de définition de l'être vivant","c":"SchoolMouv","d":119,"m":"SVT","th":"Le vivant","lv":["6e"]},{"i":"V8509zQM4sM","t":"Classer les êtres vivants","c":"SchoolMouv","d":83,"m":"SVT","th":"Le vivant","lv":["6e"]},{"i":"e2ZAucO7Cn4","t":"La place des êtres vivants dans les chaînes alimentaires","c":"Madame SVT","d":189,"m":"SVT","th":"Le vivant","lv":["6e"]},{"i":"aja8JB_v7FM","t":"Le peuplement d’un milieu","c":"Maï Lan Study","d":320,"m":"SVT","th":"Le vivant","lv":["6e"]},{"i":"1UVN6txdIKk","t":"Le peuplement des milieux par les animaux","c":"Les Bons Profs","d":528,"m":"SVT","th":"Le vivant","lv":["6e"]},{"i":"0y5i6KXnHwE","t":"La reproduction des plantes à fleurs","c":"Éditions Lelivrescolaire.fr","d":120,"m":"SVT","th":"Reproduction","lv":["6e"]},{"i":"cXEMs1DJYvU","t":"Les matériaux et leurs familles","c":"Maï Lan Study","d":332,"m":"Technologie","th":"Les matériaux","lv":["6e"]},{"i":"NaKRsZ1yAsU","t":"Les objets et systèmes techniques","c":"Technologie en poche","d":118,"m":"Technologie","th":"Les objets","lv":["6e"]},{"i":"NwDkEWFhILk","t":"Le prétérit simple","c":"Les Bons Profs","d":133,"m":"Anglais","th":"Le passé","lv":["5e"]},{"i":"saJDQKTm1No","t":"5 minutes pour comprendre la différence entre PRETERIT et PRESENT PERFECT","c":"Apprendre l'anglais avec les Tutos de Huito","d":419,"m":"Anglais","th":"Le passé","lv":["5e"]},{"i":"kE6g9ojMq54","t":"Prétérit be+ing Anglais Facile","c":"Annabelle Atelier Anglais","d":214,"m":"Anglais","th":"Le passé","lv":["5e"]},{"i":"DGvTbxfQf6c","t":"Lutter contre les discriminations","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":305,"m":"EMC","th":"Égalité et discriminations","lv":["5e"]},{"i":"HJfHK2F5KI0","t":"Agir pour l'égalité et refuser les discriminations","c":"Les Bons Profs","d":440,"m":"EMC","th":"Égalité et discriminations","lv":["5e"]},{"i":"6XdOE0AJaPI","t":"Qu'est-ce que l'égalité ?","c":"Éditions Lelivrescolaire.fr","d":102,"m":"EMC","th":"Égalité et discriminations","lv":["5e"]},{"i":"-MnooBCln6o","t":"Imparfait ou passé simple : une méthode simple pour savoir lequel utiliser","c":"Bien écrire - Katia Nugnes","d":241,"m":"Français","th":"Conjugaison","lv":["5e"]},{"i":"HlmkAlJ_5nI","t":"LES VALEURS DE L'IMPARFAIT ET DU PASSÉ SIMPLE","c":"La Classe de Fleur","d":315,"m":"Français","th":"Conjugaison","lv":["5e"]},{"i":"p9o5VyaoMNA","t":"LES PROPOSITIONS : Juxtaposées, coordonnées et subordonnées","c":"L'ardoise","d":336,"m":"Français","th":"Grammaire","lv":["5e"]},{"i":"gAeOisZHBOw","t":"Propositions Subordonnées : une astuce très simple pour les identifier !","c":"Un Cours de 5 Minutes","d":325,"m":"Français","th":"Grammaire","lv":["5e"]},{"i":"MkmAtYcgIKo","t":"Le héros ou l’héroïne","c":"Les Bons Profs","d":403,"m":"Français","th":"Le Moyen Âge","lv":["5e"]},{"i":"d_G1Zl9wQ8k","t":"Le roman de chevalerie","c":"Les Bons Profs","d":396,"m":"Français","th":"Le Moyen Âge","lv":["5e"]},{"i":"DDiucFIC2Sg","t":"Aventures en mer - Séance 1","c":"La classe de monsieur Robert","d":1210,"m":"Français","th":"Le Moyen Âge","lv":["5e"]},{"i":"jBBnId_VXYE","t":"Le théâtre comique : la société sens dessus dessous","c":"Maï Lan Study","d":427,"m":"Français","th":"Théâtre","lv":["5e"]},{"i":"Tj_-NPR9DiQ","t":"Analyser une Pièce de Théâtre : Les notions à connaître","c":"Un Cours de 5 Minutes","d":355,"m":"Français","th":"Théâtre","lv":["5e"]},{"i":"2-RIP-rRlF8","t":"HG EMC 5e : Chap. 10 - La croissance démographique et ses effets","c":"LesEditionsHatier","d":127,"m":"Géographie","th":"Démographie","lv":["5e"]},{"i":"9wIOuE-YXUM","t":"La croissance démographique et ses effets","c":"Les Bons Profs","d":622,"m":"Géographie","th":"Démographie","lv":["5e"]},{"i":"ffVtP_J5qcM","t":"Les enjeux de l'exploitation des ressources naturelles","c":"Madame SVT","d":293,"m":"Géographie","th":"Ressources","lv":["5e"]},{"i":"Z0VdUvAYjbQ","t":"5e Géographie / L'eau et l'énergie : Deux ressources à ménager et à mieux utiliser","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":290,"m":"Géographie","th":"Ressources","lv":["5e"]},{"i":"BU7sSRTdnMM","t":"HG EMC 5e : Chap. 14 - Le changement climatique et ses effets","c":"LesEditionsHatier","d":105,"m":"Géographie","th":"Ressources","lv":["5e"]},{"i":"Fo3wz2K5k4Y","t":"C'est quoi le changement climatique ?","c":"1 jour, 1 question","d":103,"m":"Géographie","th":"Ressources","lv":["5e"]},{"i":"18VXk80u83Y","t":"Byzance et l'empire carolingien","c":"La Classe d'Histoire","d":234,"m":"Histoire","th":"Byzance et l'Islam","lv":["5e"]},{"i":"sSIS3FY_YOU","t":"5e Histoire / Byzance et l'Europe carolingienne","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":301,"m":"Histoire","th":"Byzance et l'Islam","lv":["5e"]},{"i":"zVDjilovC88","t":"L’islam : pouvoirs, sociétés et culture","c":"La Classe d'Histoire","d":206,"m":"Histoire","th":"Byzance et l'Islam","lv":["5e"]},{"i":"3BhBaF2BmkQ","t":"SEIGNEURS ET PAYSANS A PARTIR DU XIE SIECLE EN OCCIDENT","c":"LE PROF PRESENTE, LA CHAINE D'HISTOIRE","d":517,"m":"Histoire","th":"Féodalité","lv":["5e"]},{"i":"cRVtTqx-v5o","t":"La place de l'Église dans la société médiévale","c":"SchoolMouv","d":98,"m":"Histoire","th":"Féodalité","lv":["5e"]},{"i":"4uLn9H9TU_w","t":"Sociétés et Église dans l’Occident médiéval","c":"La Classe d'Histoire","d":257,"m":"Histoire","th":"Féodalité","lv":["5e"]},{"i":"3Wi7VUCTRBU","t":"HG EMC 5e : Chap. 9 - Du prince de la Renaissance au roi absolu","c":"LesEditionsHatier","d":195,"m":"Histoire","th":"Temps modernes","lv":["5e"]},{"i":"n9cDB6zW1yc","t":"Renaissance, humanisme et réformes religieuses - Seconde","c":"Les Bons Profs","d":347,"m":"Histoire","th":"Temps modernes","lv":["5e"]},{"i":"J_4RlrGerEg","t":"5° - Les grandes découvertes","c":"La Classe d'Histoire","d":275,"m":"Histoire","th":"Temps modernes","lv":["5e"]},{"i":"iCkKpsLZi1U","t":"5ème- Les grandes découvertes et innovations du XV° et XVI° siècles","c":"Nicolas Pichollet","d":333,"m":"Histoire","th":"Temps modernes","lv":["5e"]},{"i":"wYCg5jme6G0","t":"Cours 5e : La réforme protestante","c":"Morgan Le Gall","d":572,"m":"Histoire","th":"Temps modernes","lv":["5e"]},{"i":"fGEEQ_RpDWU","t":"La Réforme protestante en 3 minutes","c":"Musée protestant","d":178,"m":"Histoire","th":"Temps modernes","lv":["5e"]},{"i":"7KqttzkepQw","t":"SOUSTRAIRE des FRACTIONS ? ✅ Facile ! 💪 Exercice corrigé !","c":"Paul Olivier","d":300,"m":"Maths","th":"Calcul","lv":["5e"]},{"i":"8MRsdipPKz4","t":"ADDITIONNER et SOUSTRAIRE des FRACTIONS (dénominateurs différents)","c":"Yvan Monka","d":466,"m":"Maths","th":"Calcul","lv":["5e"]},{"i":"mbG8a5Uae30","t":"LE COURS : Calcul littéral","c":"Yvan Monka","d":1503,"m":"Maths","th":"Calcul","lv":["5e"]},{"i":"ZNVRdg8At4c","t":"Replay Cours 5ème - Calcul Littéral","c":"Droles2Maths","d":1959,"m":"Maths","th":"Calcul","lv":["5e"]},{"i":"KuP27jcr6sY","t":"Les triangles et leurs droites remarquables","c":"Maï Lan Study","d":316,"m":"Maths","th":"Géométrie","lv":["5e"]},{"i":"7XAffsX2cAA","t":"LE COURS : Triangles et angles","c":"Yvan Monka","d":2392,"m":"Maths","th":"Géométrie","lv":["5e"]},{"i":"5PNtpKgMMNE","t":"Replay Cours 5e - Les parallèlogrammes","c":"Droles2Maths","d":1740,"m":"Maths","th":"Géométrie","lv":["5e"]},{"i":"BSCmpuN83us","t":"LE COURS : Parallélogrammes","c":"Yvan Monka","d":1221,"m":"Maths","th":"Géométrie","lv":["5e"]},{"i":"3isxHUPXIZ0","t":"Aires et volumes : prisme droit et cylindre","c":"Maï Lan Study","d":284,"m":"Maths","th":"Mesures","lv":["5e"]},{"i":"Sv1yrM7OPOQ","t":"CALCUL D'AIRES - LES FORMULES","c":"Hedacademy","d":213,"m":"Maths","th":"Mesures","lv":["5e"]},{"i":"DD15rePm2yM","t":"DÉCOUVRIR LES NOMBRES NÉGATIFS","c":"Hedacademy","d":236,"m":"Maths","th":"Numération","lv":["5e"]},{"i":"YivvFtSuzno","t":"LE COURS : Nombres relatifs","c":"Yvan Monka","d":1783,"m":"Maths","th":"Numération","lv":["5e"]},{"i":"jnxny9HUqt0","t":"LE COURS : Statistiques","c":"Yvan Monka","d":646,"m":"Maths","th":"Statistiques","lv":["5e"]},{"i":"ty8KU1BSG6A","t":"CIRCUIT ÉLECTRIQUE ✅ Intensité, tension 💪 Loi des mailles, loi des nœuds - Seconde","c":"Paul Olivier","d":1108,"m":"Physique-Chimie","th":"L'électricité","lv":["5e"]},{"i":"7zOxlP6gCP4","t":"Propagation RECTILIGNE de la LUMIÈRE ✅ Rayon lumineux 💪 Collège","c":"Paul Olivier","d":174,"m":"Physique-Chimie","th":"La lumière","lv":["5e"]},{"i":"zAIYfuz3GkY","t":"RÉFLEXION et RÉFRACTION de la lumière - Seconde","c":"Paul Olivier","d":289,"m":"Physique-Chimie","th":"La lumière","lv":["5e"]},{"i":"LvQKhVTpPrU","t":"Les états de la matière","c":"Les Bons Profs","d":296,"m":"Physique-Chimie","th":"La matière","lv":["5e"]},{"i":"pFMHgHHxvDk","t":"Les états de la matière et le cycle de l'eau","c":"Les génies des sciences","d":419,"m":"Physique-Chimie","th":"La matière","lv":["5e"]},{"i":"c8iLLhbtHaM","t":"Mélanges homogène et hétérogène","c":"e-profs - Physique Chimie","d":74,"m":"Physique-Chimie","th":"La matière","lv":["5e"]},{"i":"vaKiUgwu4hY","t":"Mélanges homogènes et hétérogènes : des expériences à tester","c":"Professeur Louphoque","d":369,"m":"Physique-Chimie","th":"La matière","lv":["5e"]},{"i":"u76PG0tp7Nw","t":"La digestion","c":"Les Bons Profs","d":211,"m":"SVT","th":"Le corps humain","lv":["5e"]},{"i":"acQuCJtQHBM","t":"La digestion et les besoins de l’organisme","c":"Maï Lan Study","d":340,"m":"SVT","th":"Le corps humain","lv":["5e"]},{"i":"YM1lZEUsGco","t":"La respiration : les échanges gazeux respiratoires","c":"Les Bons Profs","d":214,"m":"SVT","th":"Le corps humain","lv":["5e"]},{"i":"tYTbbPSGIHk","t":"Au coeur des organes : La respiration","c":"Inserm","d":221,"m":"SVT","th":"Le corps humain","lv":["5e"]},{"i":"bA-W97OkD-E","t":"Reproduction sexuée des plantes et pollinisation","c":"Joyez SVT - Séquences Vidéos Thématiques","d":402,"m":"SVT","th":"Reproduction","lv":["5e"]},{"i":"S45mfXmEuXs","t":"Puberté et reproduction humaine","c":"La science infuse","d":333,"m":"SVT","th":"Reproduction","lv":["5e"]},{"i":"flWlvoUMK1E","t":"L’habitat et les ouvrages","c":"Maï Lan Study","d":342,"m":"Technologie","th":"L'habitat","lv":["5e"]},{"i":"Iv_ujAFTkSY","t":"CONCEVOIR UNE MAISON DURABLE","c":"Collège En Chansons","d":129,"m":"Technologie","th":"L'habitat","lv":["5e"]},{"i":"5Z8Sm0TE7C8","t":"La technologie au collège, c'est quoi ? - Présentation pour les 5e","c":"monprofdetechnologie","d":167,"m":"Technologie","th":"Programmation","lv":["5e"]},{"i":"2ofdHokX2Xc","t":"Comprendre le PRESENT PERFECT en moins de 10 minutes","c":"Apprendre l'anglais avec les Tutos de Huito","d":576,"m":"Anglais","th":"Le passé","lv":["4e"]},{"i":"3W9v5KRjV9A","t":"Le present perfect","c":"Annabelle Atelier Anglais","d":203,"m":"Anglais","th":"Le passé","lv":["4e"]},{"i":"Gc0lRoF9GLg","t":"C'est quoi la liberté d'expression ?","c":"1 jour, 1 question","d":102,"m":"EMC","th":"Les libertés","lv":["4e"]},{"i":"F62rf4mTjS4","t":"Les libertés et les droits de la personne","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":299,"m":"EMC","th":"Les libertés","lv":["4e"]},{"i":"-PqpU3n_W6s","t":"La liberté d'expression et ses limites","c":"Lumni","d":150,"m":"EMC","th":"Les libertés","lv":["4e"]},{"i":"XqVsJhjvn7A","t":"La liberté","c":"Clistoiregéo","d":130,"m":"EMC","th":"Liberté","lv":["4e"]},{"i":"4IexZtlIqF0","t":"😯 IMPARFAIT ou PASSÉ COMPOSÉ ? Quelles sont les différences entre ces 2 temps ?","c":"Guillaume Posé - Professeur de français","d":1041,"m":"Français","th":"Conjugaison","lv":["4e"]},{"i":"pGQ1nFbzfmY","t":"Identifier les SUBORDONNÉES : les différentes subordinations","c":"Un Cours de 5 Minutes","d":354,"m":"Français","th":"Grammaire","lv":["4e"]},{"i":"gJ3oOGH87gs","t":"Les propositions subordonnées relatives, complétives, interrogatives indirectes et circonstancielles","c":"Le français avec Profélie","d":391,"m":"Français","th":"Grammaire","lv":["4e"]},{"i":"JasCjbgpDIQ","t":"Le discours rapporté","c":"Maï Lan Study","d":318,"m":"Français","th":"Grammaire","lv":["4e"]},{"i":"zBvsXpl5njc","t":"PAROLES RAPPORTÉES : les discours direct, discours indirect et discours indirect libre","c":"Un Cours de 5 Minutes","d":300,"m":"Français","th":"La lettre","lv":["4e"]},{"i":"X-Ob7LTD2XI","t":"Jean-Jacques ROUSSEAU : sa vie (pas folle) et son autobiographie","c":"Un Cours de 5 Minutes","d":390,"m":"Français","th":"Le récit de soi","lv":["4e"]},{"i":"tLtnSZ4Augs","t":"La littérature réaliste","c":"Les Bons Profs","d":435,"m":"Français","th":"Le réel","lv":["4e"]},{"i":"m3t7L_ICuz0","t":"Le réalisme et le fantastique","c":"Éditions Lelivrescolaire.fr","d":242,"m":"Français","th":"Le réel","lv":["4e"]},{"i":"hut7flp8snk","t":"A quoi ça sert le théâtre ? (EP. 707)","c":"1 jour, 1 question","d":102,"m":"Français","th":"Théâtre","lv":["4e"]},{"i":"ZJQkHcnOuJ8","t":"Le théâtre au temps de Molière","c":"Éditions Lelivrescolaire.fr","d":251,"m":"Français","th":"Théâtre","lv":["4e"]},{"i":"ma_rxGsNIw4","t":"4e Géographie / Urbanisation et mondialisation","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":244,"m":"Géographie","th":"Mondialisation","lv":["4e"]},{"i":"nzW8WKZcyMk","t":"Les métropoles dans la mondialisation","c":"La Classe d'Histoire","d":257,"m":"Géographie","th":"Mondialisation","lv":["4e"]},{"i":"5_SmDDYBimk","t":"4e Géographie / Espaces et paysages de l'urbanisation ET Des villes inégalement connectées","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":303,"m":"Géographie","th":"Mondialisation","lv":["4e"]},{"i":"pIiiloNb8BA","t":"Chapitre 10 : Les villes dans la mondialisation","c":"LesEditionsHatier","d":163,"m":"Géographie","th":"Mondialisation","lv":["4e"]},{"i":"RZ5XrTDBTsw","t":"États-Unis : les territoires intégrés à la mondialisation","c":"Les Bons Profs","d":341,"m":"Géographie","th":"États","lv":["4e"]},{"i":"AzvahcQ_aco","t":"4e Géographie / L'adaptation du territoire des Etats-Unis","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":304,"m":"Géographie","th":"États","lv":["4e"]},{"i":"mVHc2xxhEc4","t":"4e Histoire/ L'Europe des lumières : circulation des idées, despotisme éclairé et contestation","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":275,"m":"Histoire","th":"Lumières et Révolution","lv":["4e"]},{"i":"r7q129FFJmc","t":"4E EUROPE DES LUMIERES","c":"Frédéric IFFRIG","d":434,"m":"Histoire","th":"Lumières et Révolution","lv":["4e"]},{"i":"Au7DPVUpc6A","t":"La Révolution Française de 1789 à 1792","c":"Nota Bene","d":1102,"m":"Histoire","th":"Lumières et Révolution","lv":["4e"]},{"i":"nnMNL9_LVNc","t":"PREMIERE - LA NATION EN RÉVOLUTION (1789-1793)","c":"Le Labo d'Histoire-Géo","d":383,"m":"Histoire","th":"Lumières et Révolution","lv":["4e"]},{"i":"94n39duS1v0","t":"Napoléon I Quelle Histoire - TV5 Monde","c":"Quelle Histoire","d":471,"m":"Histoire","th":"Lumières et Révolution","lv":["4e"]},{"i":"l-NEXS7s_7E","t":"4e Histoire/ L'Europe et la Révolution industrielle","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":299,"m":"Histoire","th":"XIXe siècle","lv":["4e"]},{"i":"IQHfn0D0xM0","t":"4E L'EUROPE DE LA REVOLUTION INDUSTRIELLE","c":"Frédéric IFFRIG","d":520,"m":"Histoire","th":"XIXe siècle","lv":["4e"]},{"i":"oRut_5fYuBc","t":"4e Histoire/ Conquêtes et sociétés coloniales","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":303,"m":"Histoire","th":"XIXe siècle","lv":["4e"]},{"i":"IxCzv5FPJ3s","t":"LE COURS : Les puissances","c":"Yvan Monka","d":1580,"m":"Maths","th":"Calcul","lv":["4e"]},{"i":"g1tyDEz71hw","t":"Résoudre un problème à l'aide du calcul littéral","c":"Yvan Monka","d":329,"m":"Maths","th":"Calcul","lv":["4e"]},{"i":"Z0i031tIdpQ","t":"LE COURS : Les équations","c":"Yvan Monka","d":1100,"m":"Maths","th":"Calcul","lv":["4e"]},{"i":"QYM86GzWWG8","t":"LE COURS : Le théorème de Pythagore","c":"Yvan Monka","d":866,"m":"Maths","th":"Géométrie","lv":["4e"]},{"i":"M9sceJ8gzNc","t":"Appliquer le théorème de Pythagore pour calculer une longueur (1)","c":"Yvan Monka","d":384,"m":"Maths","th":"Géométrie","lv":["4e"]},{"i":"hDpEeP9wdUs","t":"LE COURS : Le cosinus","c":"Yvan Monka","d":1245,"m":"Maths","th":"Géométrie","lv":["4e"]},{"i":"EQk7WyojUgY","t":"Calculer un angle à l'aide du cosinus (1)","c":"Yvan Monka","d":397,"m":"Maths","th":"Géométrie","lv":["4e"]},{"i":"YBwMKghrSOE","t":"Calculer un volume par agrandissement ou réduction","c":"Yvan Monka","d":691,"m":"Maths","th":"Mesures","lv":["4e"]},{"i":"RzIJ5Fq2fiU","t":"Calculer le volume d'une PYRAMIDE ou d'un CÔNE","c":"Yvan Monka","d":332,"m":"Maths","th":"Mesures","lv":["4e"]},{"i":"iOsHeeTFvnI","t":"Cours 4ème - Statistiques Partie 1","c":"Math Legrand","d":312,"m":"Maths","th":"Statistiques","lv":["4e"]},{"i":"M_k3M-v5E8g","t":"Circuit électrique : en SÉRIE ou en DÉRIVATION ? 🎯 Exercice BREVET ✅ 5e","c":"Paul Olivier","d":211,"m":"Physique-Chimie","th":"L'électricité","lv":["4e","5e"]},{"i":"UUH3ROlksGQ","t":"Les lois de l'électricité","c":"Mathrix","d":559,"m":"Physique-Chimie","th":"L'électricité","lv":["4e"]},{"i":"MJ9cYCble_o","t":"Lumière et couleurs","c":"Maï Lan Study","d":459,"m":"Physique-Chimie","th":"La lumière","lv":["4e"]},{"i":"kI1plg8lV3s","t":"Qu'est-ce que la lumière ?","c":"C'est pas sorcier","d":82,"m":"Physique-Chimie","th":"La lumière","lv":["4e"]},{"i":"_EhWg8lytkA","t":"Atome ou molécule ? 🎯 PHYSIQUE CHIMIE COLLÈGE - 4e (Exercice BREVET)","c":"Paul Olivier","d":146,"m":"Physique-Chimie","th":"La matière","lv":["4e"]},{"i":"SiPBIFuVLTs","t":"Les séismes","c":"Madame SVT","d":394,"m":"SVT","th":"La Terre","lv":["4e"]},{"i":"4UzAMq0MMXo","t":"Le volcanisme","c":"Madame SVT","d":522,"m":"SVT","th":"La Terre","lv":["4e"]},{"i":"YGPQjtPP9og","t":"L'origine des séismes et des volcans","c":"Madame SVT","d":326,"m":"SVT","th":"La Terre","lv":["4e"]},{"i":"YZUHPM6ysng","t":"Chaîne d'énergie et chaîne d'information","c":"Mathrix","d":526,"m":"Technologie","th":"Les systèmes","lv":["4e"]},{"i":"WsfFdcqdAsk","t":"La chaîne fonctionnelle","c":"Monsieur Techno","d":434,"m":"Technologie","th":"Les systèmes","lv":["4e"]},{"i":"C5t5f7DG4iM","t":"Algorithmique et programmation","c":"LaboBac","d":519,"m":"Technologie","th":"Programmation","lv":["4e"]},{"i":"2rgdlu21Awg","t":"Réussir l'oral du brevet - méthodo","c":"L'Antiseche","d":273,"m":"Anglais","th":"Brevet","lv":["3e"]},{"i":"rFbqj3tgasE","t":"Se préparer pour l'oral d'anglais sans stresser : les clés","c":"Leprofduweb : Retrouve-nous sur notre site","d":160,"m":"Anglais","th":"Brevet","lv":["3e"]},{"i":"G7LNUeaOux0","t":"Le superlatif","c":"Les Bons Profs","d":271,"m":"Anglais","th":"Comparatifs","lv":["3e"]},{"i":"7uQc7u8KkEo","t":"Comparatif et superlatif","c":"La Langue Au Chat ","d":415,"m":"Anglais","th":"Comparatifs","lv":["3e"]},{"i":"LhbvmZ6T_6Q","t":"Le comparatif","c":"FAB VH - Réussir en Anglais","d":344,"m":"Anglais","th":"Comparatifs","lv":["3e"]},{"i":"skgkkjYtfyY","t":"Anglais lycée : savoir utiliser le comparatif et le superlatif","c":"LesEditionsHatier","d":327,"m":"Anglais","th":"Grammaire","lv":["3e"]},{"i":"4jTZuqbg-js","t":"Le present perfect (3e)","c":"Les Bons Profs","d":272,"m":"Anglais","th":"Le passé","lv":["3e"]},{"i":"WKb-D0xJ9x8","t":"Nationalité, citoyenneté francaise et européenne - Education Civique","c":"Les Bons Profs","d":263,"m":"EMC","th":"Citoyenneté","lv":["3e"]},{"i":"TCeKBklkSek","t":"Valeurs, principes et symboles de la République","c":"Julien Ferrand Professeur d'Histoire-Géographie","d":260,"m":"EMC","th":"Citoyenneté","lv":["3e"]},{"i":"v-bzDit-vPA","t":"Citoyenneté française et européenne","c":"Les Bons Profs","d":580,"m":"EMC","th":"Citoyenneté","lv":["3e"]},{"i":"8wOZlDTwr80","t":"Préserver la paix et protéger des valeurs communes : défense et sécurité en France et en Europe","c":"Éditions Lelivrescolaire.fr","d":129,"m":"EMC","th":"Défense","lv":["3e"]},{"i":"Zz7kj6hwoS4","t":"Parcours citoyenneté : JDC et défense nationale","c":"Frédéric IFFRIG","d":415,"m":"EMC","th":"Défense et paix","lv":["3e"]},{"i":"nn-J56VqTcg","t":"Les classes grammaticales","c":"L'Antiseche","d":471,"m":"Français","th":"Brevet","lv":["3e"]},{"i":"Q8-8DqcEGX8","t":"BREVET de FRANÇAIS 2026 : TOUT le programme en 30 minutes","c":"L'ardoise","d":1883,"m":"Français","th":"Brevet","lv":["3e"]},{"i":"sh6nPFtl4P0","t":"Le présent du subjonctif - Espagnol","c":"Les Bons Profs","d":383,"m":"Français","th":"Conjugaison","lv":["3e"]},{"i":"jr4WTCFiEEg","t":"4ème/3ème - discours direct/indirect (cours)@LescoursdeSandra","c":"Les cours de Sandra","d":72,"m":"Français","th":"Grammaire","lv":["3e","4e"]},{"i":"bPeoe38Y-YY","t":"Autobiographie et récits de soi","c":"Les Bons Profs","d":282,"m":"Français","th":"Le récit de soi","lv":["3e"]},{"i":"UxAr9f1PQeE","t":"Le récit de soi : autobiographie et mémoires","c":"Maï Lan Study","d":441,"m":"Français","th":"Le récit de soi","lv":["3e"]},{"i":"Lkc_ZGGFo8U","t":"Rappels sur la poésie","c":"Les Bons Profs","d":270,"m":"Français","th":"Poésie","lv":["3e"]},{"i":"AjxjnHoGAsQ","t":"Le lyrisme en poésie","c":"Les Bons Profs","d":296,"m":"Français","th":"Poésie","lv":["3e"]},{"i":"SMe1wzKsVVA","t":"C'est quoi les médias ?","c":"1 jour, 1 question","d":102,"m":"Français","th":"Presse","lv":["3e"]},{"i":"kaad4APvbN8","t":"Droits de l'homme, la démocratie, la liberté de la presse et des médias dans le monde 12/06/2013","c":"Charles Goerens","d":125,"m":"Français","th":"Presse","lv":["3e"]},{"i":"FYgj486o5bI","t":"L’Union européenne, un nouveau territoire d’appartenance (Géographie 3e)","c":"Éditions Lelivrescolaire.fr","d":179,"m":"Géographie","th":"La France","lv":["3e"]},{"i":"7_DwbsQ3Oeo","t":"La France et l’Europe dans le monde (Géographie 3e)","c":"Éditions Lelivrescolaire.fr","d":169,"m":"Géographie","th":"La France","lv":["3e"]},{"i":"tTEUY1sCS78","t":"Mondialisation - Définition","c":"Salle104","d":72,"m":"Géographie","th":"Mondialisation","lv":["3e"]},{"i":"JKHrk015Lr4","t":"Les territoires ultra-marins français","c":"Les Bons Profs","d":361,"m":"Géographie","th":"Territoires","lv":["3e"]},{"i":"di39DREgtvM","t":"Aménager les territoires ultramarins (Géographie 3e)","c":"Éditions Lelivrescolaire.fr","d":148,"m":"Géographie","th":"Territoires","lv":["3e"]},{"i":"LhfUHL66T5Q","t":"La guerre froide (Histoire 3e)","c":"Éditions Lelivrescolaire.fr","d":213,"m":"Histoire","th":"Après 1945","lv":["3e"]},{"i":"OdWs1EL1WN4","t":"La Guerre Froide","c":"L'Antiseche","d":633,"m":"Histoire","th":"Après 1945","lv":["3e"]},{"i":"_3exRfSbAPc","t":"De la décolonisation aux nouveaux États (Histoire 3e)","c":"Éditions Lelivrescolaire.fr","d":185,"m":"Histoire","th":"Après 1945","lv":["3e"]},{"i":"IE6DzxLcKaw","t":"La décolonisation","c":"Savoir + / Histoire-Géo-Emc","d":310,"m":"Histoire","th":"Après 1945","lv":["3e"]},{"i":"OdXgdx7fJ_0","t":"La Première Guerre mondiale (Histoire 3e)","c":"Éditions Lelivrescolaire.fr","d":201,"m":"Histoire","th":"Guerres mondiales","lv":["3e"]},{"i":"3LrPAz4cjh0","t":"GUERRE DE 14-18","c":"C'est pas sorcier","d":1702,"m":"Histoire","th":"Guerres mondiales","lv":["3e"]},{"i":"E9sSYiJXM_w","t":"Régimes totalitaires","c":"L'Antiseche","d":491,"m":"Histoire","th":"Guerres mondiales","lv":["3e"]},{"i":"q4CJRflxg2g","t":"3° - Si on révisait ? Les régimes totalitaires","c":"La Classe d'Histoire","d":333,"m":"Histoire","th":"Guerres mondiales","lv":["3e"]},{"i":"3W8SETboN3c","t":"Comment se souvient-on de la Shoah ? / 1jour1question feat. Info ou Mytho","c":"1 jour, 1 question","d":117,"m":"Histoire","th":"Guerres mondiales","lv":["3e"]},{"i":"qX9MYS74AG0","t":"La Ve Republique (république gaullienne, alternance, cohabitation)","c":"Les Bons Profs","d":469,"m":"Histoire","th":"République","lv":["3e"]},{"i":"oqu_gYAYVlg","t":"La Ve République (Histoire 3e)","c":"Éditions Lelivrescolaire.fr","d":207,"m":"Histoire","th":"République","lv":["3e"]},{"i":"mTm3gt_zYUQ","t":"BREVET : TOUT ce qu'il faut savoir en maths + CONSEILS","c":"Yvan Monka","d":589,"m":"Maths","th":"Brevet","lv":["3e"]},{"i":"X9LSQICY97k","t":"LES PUISSANCES ✅ Explications simples ! 💪 Math","c":"Paul Olivier","d":298,"m":"Maths","th":"Calcul","lv":["3e","4e"]},{"i":"WoTpA2RyuVU","t":"LE COURS : Les équations - Seconde","c":"Yvan Monka","d":1352,"m":"Maths","th":"Calcul","lv":["3e"]},{"i":"ezGlju-nR6s","t":"Résoudre une équation ✅ Méthode simple","c":"Paul Olivier","d":255,"m":"Maths","th":"Calcul","lv":["3e"]},{"i":"klqqakZvIY4","t":"LES FONCTIONS - Image & Antécédent 3e","c":"Hedacademy","d":446,"m":"Maths","th":"Fonctions","lv":["3e"]},{"i":"9DPvnj6Cl78","t":"Notion de fonctions","c":"L'Antiseche","d":366,"m":"Maths","th":"Fonctions","lv":["3e"]},{"i":"GwGQD2BdZ3s","t":"Appliquer le théorème de Thalès (1)","c":"Yvan Monka","d":575,"m":"Maths","th":"Géométrie","lv":["3e"]},{"i":"puuHhlf0jAQ","t":"LE COURS : Théorème de Thalès","c":"Yvan Monka","d":1219,"m":"Maths","th":"Géométrie","lv":["3e"]},{"i":"DfgUYXB5_jg","t":"LE COURS : Trigonométrie","c":"Yvan Monka","d":965,"m":"Maths","th":"Géométrie","lv":["3e"]},{"i":"Lbl6WmSA014","t":"La trigonométrie","c":"L'Antiseche","d":310,"m":"Maths","th":"Géométrie","lv":["3e"]},{"i":"Wsv2pp5Ytx8","t":"LE COURS : Espace","c":"Yvan Monka","d":1152,"m":"Maths","th":"Géométrie","lv":["3e"]},{"i":"EoT48VtnUJ4","t":"LE COURS : Vecteurs, droites et plans de l'espace - Terminale","c":"Yvan Monka","d":1324,"m":"Maths","th":"Géométrie","lv":["3e"]},{"i":"3dotWbPQGU4","t":"Les PROBABILITÉS 🎲✅ Cours COMPLET comprendre facilement ! 🎯 4e - Seconde","c":"Paul Olivier","d":812,"m":"Maths","th":"Statistiques","lv":["3e","4e"]},{"i":"CBtj0nLx-N4","t":"LE COURS : Probabilités","c":"Yvan Monka","d":723,"m":"Maths","th":"Statistiques","lv":["3e"]},{"i":"HC8t58QN57I","t":"100 QUESTIONS pour Réussir le BREVET ! (Physique-Chimie) 🎯💥","c":"Paul Olivier","d":1466,"m":"Physique-Chimie","th":"Brevet","lv":["3e"]},{"i":"MdrDR0nF45Y","t":"Révisions Brevet - Mouvements et interactions + 📝 Fiche de révision ⬇️ Physique chimie 🧪","c":"SciencesLab","d":386,"m":"Physique-Chimie","th":"Brevet","lv":["3e"]},{"i":"uzeT2nR075I","t":"Les IONS 🔟/🔟 Quiz pour réviser","c":"Paul Olivier","d":246,"m":"Physique-Chimie","th":"Chimie","lv":["3e"]},{"i":"9fiCedUe1Sk","t":"Atomes et ions","c":"Les Bons Profs","d":214,"m":"Physique-Chimie","th":"Chimie","lv":["3e"]},{"i":"cZUGvzTqUOM","t":"Qu'est-ce que la tension électrique ? ✅ Mesure, unité, calcul 💪 4e, 3e","c":"Paul Olivier","d":259,"m":"Physique-Chimie","th":"L'électricité","lv":["3e","4e"]},{"i":"tqzH6tfhmHs","t":"Comment calculer l'ÉNERGIE ÉLECTRIQUE ? ✏️ Exercice","c":"Paul Olivier","d":225,"m":"Physique-Chimie","th":"L'énergie","lv":["3e"]},{"i":"zlyIYtWWCkg","t":"Énergie cinétique et vitesse - Lycée","c":"Paul Olivier","d":335,"m":"Physique-Chimie","th":"L'énergie","lv":["3e"]},{"i":"M-k2exp7krM","t":"CALCULER une MASSE VOLUMIQUE ? 🎯 Méthode facile ! 💪 Exercice BREVET - 4e, 3e","c":"Paul Olivier","d":243,"m":"Physique-Chimie","th":"La matière","lv":["3e","4e"]},{"i":"APwcQyRcH3c","t":"MASSE VOLUMIQUE ✅ Quiz de révision 🎯 4e","c":"Paul Olivier","d":208,"m":"Physique-Chimie","th":"La matière","lv":["3e","4e"]},{"i":"MD-olMNlebQ","t":"ATOME & MOLÉCULE ✅ Quiz de révision 🎯 4e","c":"Paul Olivier","d":190,"m":"Physique-Chimie","th":"La matière","lv":["3e","4e"]},{"i":"Zzt6HpCXvnM","t":"Décrire un MOUVEMENT","c":"Paul Olivier","d":213,"m":"Physique-Chimie","th":"Mécanique","lv":["3e"]},{"i":"s7GnQHYVcVQ","t":"Qu'est-ce QU'UNE FORCE ? 💪 Fiche de révision 💙 3e - Seconde","c":"Paul Olivier","d":179,"m":"Physique-Chimie","th":"Mécanique","lv":["3e"]},{"i":"2ezcDb9ONLw","t":"Les chromosomes et l'ADN","c":"Les Bons Profs","d":213,"m":"SVT","th":"Génétique","lv":["3e"]},{"i":"Cvwxd2fcRMI","t":"Tout comprendre sur l’ADN SVT Brevet 3ème - Découvre le secret des chromosomes et des gènes !","c":"Alloscience","d":116,"m":"SVT","th":"Génétique","lv":["3e"]},{"i":"f8xPf9ylCjs","t":"Les bases de la génétique","c":"Sciences Nat'","d":650,"m":"SVT","th":"Génétique","lv":["3e"]},{"i":"1xdYAIaRFwo","t":"La mitose","c":"L'ardoise","d":254,"m":"SVT","th":"Génétique","lv":["3e"]},{"i":"GJbeRDO7W4g","t":"Les défenses immunitaires innées SVT Collège","c":"La science infuse","d":324,"m":"SVT","th":"Immunité","lv":["3e"]},{"i":"SRI2DEPNgUI","t":"Immunité et système immunitaire","c":"Les Bons Profs","d":202,"m":"SVT","th":"Immunité","lv":["3e"]},{"i":"ebSc_yPqjCI","t":"La vaccination","c":"Elodie Apperce","d":290,"m":"SVT","th":"Immunité","lv":["3e"]},{"i":"oK3esXMQxaI","t":"Corpus : Au cœur des organes. Le système nerveux","c":"Inserm","d":331,"m":"SVT","th":"Le corps","lv":["3e"]},{"i":"kWEdMZry7Qs","t":"Le système nerveux","c":"La science infuse","d":331,"m":"SVT","th":"Le corps","lv":["3e"]},{"i":"A0vzKC6AHUE","t":"Biodiversité et évolution","c":"Madame SVT","d":327,"m":"SVT","th":"Évolution","lv":["3e"]},{"i":"oXX85IWpysk","t":"Arbre d'évolution et caractères","c":"Madame SVT","d":437,"m":"SVT","th":"Évolution","lv":["3e"]},{"i":"BkxCayl8Agc","t":"Design, innovation et démarche de projet","c":"Maï Lan Study","d":421,"m":"Technologie","th":"Le projet","lv":["3e"]},{"i":"hLBbfZ5Af4s","t":"Le cahier des charges et l'analyse fonctionnelle","c":"Papotechno","d":553,"m":"Technologie","th":"Le projet","lv":["3e"]},{"i":"N6CgqaXMphA","t":"Le cahier des charges fonctionnel","c":"Monsieur Techno","d":602,"m":"Technologie","th":"Le projet","lv":["3e"]},{"i":"XcFuwX7aLDI","t":"Réviser le brevet de techno","c":"Mes Révisions Collège","d":105,"m":"Technologie","th":"Le projet","lv":["3e"]},{"i":"wblBIj9W-Pg","t":"Famille et lignée d'objets : fonction d'usage, principe technique","c":"monprofdetechnologie","d":284,"m":"Technologie","th":"Programmation","lv":["3e","4e","5e"]},{"i":"7zL-41sUGnM","t":"Scratch au brevet","c":"Yvan Monka","d":1507,"m":"Technologie","th":"Programmation","lv":["3e"]}];
+const PROG   = {"6e":{"short":"cycle 3","resume":"L'entrée au collège : on apprend à lire plus long, à écrire plus structuré, et à organiser son travail. C'est l'année où les habitudes se prennent.","matieres":[{"n":"Français","e":"📖","c":"#D9462F","att":"Lire un récit long, identifier les classes de mots, conjuguer aux temps simples, écrire un récit court.","dom":[["Le récit","aventure, contes, fables, mythologie"],["Grammaire","classes grammaticales et fonctions"],["Conjugaison","présent, imparfait, futur, passé simple"],["Écriture","rédiger et réviser un récit"],["Lexique","familles de mots, dictionnaire"]]},{"n":"Maths","e":"🔢","c":"#23618F","att":"Maîtriser les décimaux et les fractions simples, la division, la proportionnalité et les figures usuelles.","dom":[["Nombres","décimaux, fractions"],["Calcul","quatre opérations, division euclidienne"],["Proportionnalité","tableaux, passage à l'unité"],["Géométrie","triangles, angles, symétrie axiale, solides"],["Grandeurs","périmètre, aire, volume"]]},{"n":"Histoire","e":"🏛️","c":"#9B5320","att":"Situer les premières civilisations, la Grèce, Rome, et les débuts des trois religions du Livre.","dom":[["La longue histoire","Préhistoire, Mésopotamie, écriture"],["Méditerranée antique","cité grecque, Rome et l'Empire"],["Religions","judaïsme, christianisme, islam"]]},{"n":"Géographie","e":"🗺️","c":"#1F7A6C","att":"Décrire où et comment vivent les humains : métropoles, espaces peu denses, littoraux.","dom":[["Habiter une métropole","ville, quartiers, mobilités"],["Habiter un espace de faible densité","campagnes, déserts, montagnes"],["Habiter les littoraux","ports, tourisme, risques"]]},{"n":"SVT","e":"🌿","c":"#2E8B57","att":"Observer le vivant à l'échelle de la cellule, classer, expliquer l'alimentation et le peuplement.","dom":[["Unité du vivant","la cellule"],["Classification","classer les êtres vivants"],["Nutrition","alimentation des animaux et des plantes"],["Peuplement","colonisation d'un milieu"]]},{"n":"Physique-Chimie","e":"⚗️","c":"#1F6FB2","att":"Décrire la matière, les mélanges, l'énergie et le mouvement — avec des mesures et des expériences.","dom":[["Matière","états, mélanges, mesures"],["Énergie","sources, conversions, économies"],["Mouvement","vitesse, trajectoire"],["Sécurité","règles au laboratoire"]]},{"n":"Technologie","e":"🛠️","c":"#6B7280","att":"Comprendre un objet technique, ses matériaux, son énergie, et commencer à programmer.","dom":[["Objets techniques","besoin, fonction, évolution"],["Matériaux","propriétés, choix"],["Information","algorithmes, programmation par blocs"]]},{"n":"Anglais","e":"🇬🇧","c":"#B93A73","att":"Niveau A1 : se présenter, décrire sa famille et ses goûts, raconter au présent.","dom":[["Se présenter","nom, âge, nationalité, goûts"],["Présent simple","be, have, verbes usuels"],["Vocabulaire","famille, école, quotidien"]]},{"n":"EMC","e":"⚖️","c":"#65489B","att":"Comprendre le collège, ses règles, l'égalité et le respect entre élèves.","dom":[["Le collège","règlement, droits et devoirs, instances"],["Égalité et respect","filles-garçons, différences"],["Harcèlement","reconnaître, réagir, alerter"]]},{"n":"Arts","e":"🎨","c":"#C98A12","att":"Découvrir les langages des arts plastiques et de la musique.","dom":[["Arts plastiques","couleur, espace, image, matière"],["Histoire des arts","premières œuvres repères"]]},{"n":"Musique","e":"🎵","c":"#8A4FBF","att":"Écouter, décrire, interpréter : la musique s'apprend en écoutant et en chantant.","dom":[["Voix et chant","chanter juste, ensemble"],["Écoute","repérer les instruments, les formes, les styles"]]}]},"5e":{"short":"cycle 4","resume":"Le cap des nombres relatifs et du calcul littéral. En français, on quitte le récit pour le théâtre. En histoire, mille ans en une année.","matieres":[{"n":"Français","e":"📖","c":"#D9462F","att":"Lire un roman médiéval, comprendre le théâtre, maîtriser la phrase complexe et les temps du passé.","dom":[["Le récit médiéval","chevalerie, héros, merveilleux"],["Le théâtre","comédie, dialogue, mise en scène"],["Grammaire","propositions, phrase complexe"],["Conjugaison","passé simple, imparfait, plus-que-parfait"],["Écriture","décrire, raconter, insérer un dialogue"]]},{"n":"Maths","e":"🔢","c":"#23618F","att":"Manier les nombres relatifs et les fractions, entrer dans le calcul littéral et les statistiques.","dom":[["Nombres relatifs","comparer, additionner, soustraire"],["Fractions","addition, soustraction, comparaison"],["Calcul littéral","premières expressions, distributivité"],["Géométrie","triangles, droites remarquables, parallélogrammes"],["Statistiques","effectifs, fréquences, moyennes"],["Grandeurs","aires et volumes"]]},{"n":"Histoire","e":"🏛️","c":"#9B5320","att":"Situer Byzance, les empires de l'Islam, la féodalité, la Renaissance et les grandes découvertes.","dom":[["Byzance et l'Islam","empires, échanges, cultures"],["Féodalité","seigneurs, paysans, Église"],["Temps modernes","Renaissance, découvertes, Réforme"]]},{"n":"Géographie","e":"🗺️","c":"#1F7A6C","att":"Expliquer la croissance de la population, l'usage des ressources et le changement climatique.","dom":[["Démographie","croissance, migrations"],["Ressources","eau, énergie, alimentation"],["Climat","changement climatique, adaptation"],["Développement durable","acteurs, choix"]]},{"n":"SVT","e":"🌿","c":"#2E8B57","att":"Expliquer le fonctionnement du corps humain et la reproduction des êtres vivants.","dom":[["Nutrition","alimentation, digestion, respiration"],["Reproduction","plantes et êtres humains"],["Santé","hygiène de vie, prévention"]]},{"n":"Physique-Chimie","e":"⚗️","c":"#1F6FB2","att":"Expliquer les états de la matière, les mélanges, les circuits électriques et la lumière.","dom":[["Matière","états, mélanges homogènes et hétérogènes"],["Électricité","circuits en série et en dérivation"],["Lumière","sources, propagation, ombres"],["Mesures","masse, volume, température"]]},{"n":"Technologie","e":"🛠️","c":"#6B7280","att":"Comprendre l'habitat et programmer un système simple.","dom":[["Habitat et ouvrages","structures, énergies, confort"],["Programmation","capteurs, actionneurs, blocs"],["Matériaux","propriétés et usages"]]},{"n":"Anglais","e":"🇬🇧","c":"#B93A73","att":"Niveau A2 : raconter au passé, décrire, échanger dans des situations simples.","dom":[["Le prétérit","verbes réguliers et irréguliers"],["Vocabulaire","maison, ville, activités"],["Oral","dialogues, prononciation"]]},{"n":"EMC","e":"⚖️","c":"#65489B","att":"Identifier les discriminations et les moyens d'agir, seul et collectif.","dom":[["Égalité","stéréotypes, discriminations"],["Solidarité","actions individuelles et collectives"]]},{"n":"Arts","e":"🎨","c":"#C98A12","att":"Analyser une œuvre, expérimenter, interpréter.","dom":[["Arts plastiques","image, composition, technique"],["Histoire des arts","œuvres et contextes"]]},{"n":"Musique","e":"🎵","c":"#8A4FBF","att":"Écouter, décrire, interpréter : la musique s'apprend en écoutant et en chantant.","dom":[["Voix et chant","chanter juste, ensemble"],["Écoute","repérer les instruments, les formes, les styles"]]}]},"4e":{"short":"cycle 4","resume":"Pythagore, les puissances, les Lumières et la Révolution. On commence à écrire des textes longs et à démontrer.","matieres":[{"n":"Français","e":"📖","c":"#D9462F","att":"Lire une autobiographie et une œuvre réaliste, maîtriser les subordonnées, écrire un texte construit et argumenté.","dom":[["Récit de soi","autobiographie, journal, mémoires"],["Réalisme","roman et nouvelle du XIXe"],["Théâtre","comédie, quiproquo, mise en scène"],["La lettre","lettre, discours, argumentation"],["Grammaire","subordonnées relatives, discours rapporté"],["Conjugaison","temps composés, concordance"]]},{"n":"Maths","e":"🔢","c":"#23618F","att":"Utiliser Pythagore, les puissances, le calcul littéral, les équations et le cosinus.","dom":[["Pythagore","théorème direct et réciproque"],["Puissances","notation, opérations, écriture scientifique"],["Calcul littéral","développer, factoriser, équations"],["Trigonométrie","cosinus"],["Statistiques","médiane, étendue"],["Volumes","pyramides, cônes, cylindres"]]},{"n":"Histoire","e":"🏛️","c":"#9B5320","att":"Expliquer les Lumières, la Révolution, l'Empire, l'industrialisation et la colonisation.","dom":[["XVIIIe siècle","Lumières, traite atlantique"],["Révolution et Empire","1789, République, Napoléon"],["XIXe siècle","industrialisation, colonisation"]]},{"n":"Géographie","e":"🗺️","c":"#1F7A6C","att":"Analyser la mondialisation et les espaces qu'elle transforme.","dom":[["Mondialisation","acteurs, flux, réseaux"],["Villes","métropoles, inégalités"],["Espaces productifs","agricoles, industriels, de services"],["Études de cas","États-Unis, Afrique"]]},{"n":"SVT","e":"🌿","c":"#2E8B57","att":"Expliquer la reproduction sexuée et les phénomènes géologiques internes.","dom":[["Reproduction sexuée","fécondation, transmission de la vie"],["Séismes","mécanismes, risques"],["Volcanisme","mécanismes, risques"]]},{"n":"Physique-Chimie","e":"⚗️","c":"#1F6FB2","att":"Expliquer la matière à l'échelle des atomes, l'électricité et la lumière.","dom":[["Masse volumique","mesurer, identifier"],["Atomes et molécules","modèle particulaire, réactions"],["Électricité","lois, circuits, sécurité"],["Lumière et couleurs","dispersion, synthèse"],["Son","fréquence, intensité"]]},{"n":"Technologie","e":"🛠️","c":"#6B7280","att":"Programmer un objet connecté et comprendre un système technique.","dom":[["Programmation","algorithmes, boucles, conditions"],["Objets connectés","capteurs, actionneurs, réseaux"],["Systèmes","analyser, modéliser"]]},{"n":"Anglais","e":"🇬🇧","c":"#B93A73","att":"Niveau A2+ : raconter une expérience, utiliser le present perfect.","dom":[["Prétérit","récit au passé"],["Present perfect","expérience, bilan"],["Oral","décrire, raconter, réagir"]]},{"n":"EMC","e":"⚖️","c":"#65489B","att":"Comprendre la liberté d'expression, le droit et la justice.","dom":[["Liberté d'expression","limites, presse, réseaux"],["Droit et justice","règles, tribunal, droits"]]},{"n":"Arts","e":"🎨","c":"#C98A12","att":"Analyser une œuvre, expérimenter, interpréter.","dom":[["Arts plastiques","image, espace, matière"],["Histoire des arts","œuvres et contextes"]]},{"n":"Musique","e":"🎵","c":"#8A4FBF","att":"Écouter, décrire, interpréter : la musique s'apprend en écoutant et en chantant.","dom":[["Voix et chant","chanter juste, ensemble"],["Écoute","repérer les instruments, les formes, les styles"]]}]},"3e":{"short":"cycle 4 · brevet","resume":"L'année du brevet. Trois siècles d'histoire en histoire, tout le programme en maths, et l'oral à préparer dès le premier trimestre.","matieres":[{"n":"Français","e":"📖","c":"#D9462F","att":"Préparer le brevet : lire, argumenter, écrire, maîtriser la phrase complexe et le subjonctif.","dom":[["Récit de soi","autobiographie, engagement"],["Poésie","lyrisme, formes fixes et libres"],["Argumentation","convaincre, persuader, réfuter"],["Presse et médias","information, fake news, liberté"],["Grammaire","subordonnées, phrase complexe"],["Conjugaison","subjonctif, valeur des temps"],["Brevet","méthode des épreuves"]]},{"n":"Maths","e":"🔢","c":"#23618F","att":"Thalès, trigonométrie, fonctions, probabilités : tout le programme du brevet.","dom":[["Thalès","théorème et réciproque"],["Trigonométrie","sinus, cosinus, tangente"],["Fonctions","linéaire, affine, lecture de courbes"],["Équations","équations et inéquations"],["Probabilités","calcul, arbres"],["Espace","sphère, sections, volumes"],["Brevet","méthode et annales"]]},{"n":"Histoire","e":"🏛️","c":"#9B5320","att":"Expliquer les deux guerres mondiales, la Guerre froide, la décolonisation et la Ve République.","dom":[["Guerres mondiales","1914-1918, totalitarismes, Shoah"],["Après 1945","Guerre froide, décolonisation"],["République","la Ve République, institutions"]]},{"n":"Géographie","e":"🗺️","c":"#1F7A6C","att":"Comprendre la France, l'Union européenne et la mondialisation.","dom":[["France et UE","territoires, institutions, inégalités"],["Mondialisation","acteurs, flux, contestations"],["Territoires français","métropole, outre-mer"]]},{"n":"SVT","e":"🌿","c":"#2E8B57","att":"Génétique, immunité, évolution, système nerveux : le corps et l'espèce.","dom":[["Génétique","chromosomes, ADN, hérédité"],["Immunité","défenses, vaccination, VIH"],["Évolution","sélection naturelle, biodiversité"],["Système nerveux","neurones, réflexes, santé"]]},{"n":"Physique-Chimie","e":"⚗️","c":"#1F6FB2","att":"Énergie, forces, chimie : préparer l'épreuve du brevet.","dom":[["Énergie","formes, conversions, puissance"],["Mécanique","forces, poids, mouvement"],["Chimie","ions, pH, réactions"],["Électricité","lois, circuits, sécurité"],["Brevet","méthode et annales"]]},{"n":"Technologie","e":"🛠️","c":"#6B7280","att":"Mener un projet technique et programmer un système.","dom":[["Projet","cahier des charges, conception"],["Programmation","algorithmes, simulateurs"],["Objets et systèmes","analyse, modélisation"]]},{"n":"Anglais","e":"🇬🇧","c":"#B93A73","att":"Niveau A2+/B1 : argumenter simplement, réussir l'oral du brevet.","dom":[["Grammaire","comparatifs, present perfect, modaux"],["Oral du brevet","se présenter, présenter un projet"],["Vocabulaire","thèmes du programme"]]},{"n":"EMC","e":"⚖️","c":"#65489B","att":"Citoyenneté, défense et paix : comprendre la République et ses engagements.","dom":[["Citoyenneté","française et européenne, droits"],["Défense et paix","armée, ONU, maintien de la paix"]]},{"n":"Arts","e":"🎨","c":"#C98A12","att":"Analyser une œuvre, expérimenter, interpréter.","dom":[["Arts plastiques","projet personnel, démarche"],["Histoire des arts","œuvre et contexte, oral"]]},{"n":"Musique","e":"🎵","c":"#8A4FBF","att":"Écouter, décrire, interpréter : la musique s'apprend en écoutant et en chantant.","dom":[["Voix et chant","chanter juste, ensemble"],["Écoute","repérer les instruments, les formes, les styles"]]}]}};
+const LEVELS = ["6e","5e","4e","3e"];
+const MORDER = ["Français","Maths","Histoire","Géographie","SVT","Physique-Chimie","Technologie","Anglais","EMC","Arts","Musique"];
+
+const $ = s => document.querySelector(s);
+const state = {lv:LEVELS[0], mat:"Tout", q:""};
+let seen = new Set(JSON.parse(localStorage.getItem("collegetube_vus")||"[]"));
+const saveSeen = () => localStorage.setItem("collegetube_vus", JSON.stringify([...seen]));
+
+function fmt(s){ if(!s) return ""; const m=Math.floor(s/60); const r=Math.round(s%60); return m+":"+String(r).padStart(2,"0"); }
+function matColor(m){ const d=document.querySelector('.matbtn[data-m="'+m+'"] .dot'); return d? d.style.background : "#16213C"; }
+
+/* ---- filtres niveau ---- */
+LEVELS.forEach(l=>{
+  const b=document.createElement("button");
+  b.className="lvbtn"; b.dataset.lv=l;
+  const p=PROG[l]||{};
+  b.innerHTML = l+"<small>"+(p.short||"cycle")+"</small>";
+  b.onclick=()=>{state.lv=l; state.mat="Tout"; render();};
+  $("#levels").appendChild(b);
+});
+const ball=document.createElement("button");
+ball.className="lvbtn"; ball.dataset.lv="Tout"; ball.innerHTML="TOUT<small>4 niveaux</small>";
+ball.onclick=()=>{state.lv="Tout"; state.mat="Tout"; render();};
+$("#levels").appendChild(ball);
+
+/* ---- filtres matière ---- */
+function buildMats(){
+  const mats = state.lv==="Tout" ? MORDER : (PROG[state.lv]? PROG[state.lv].matieres.map(x=>x.n) : []);
+  const box=$("#mats"); box.innerHTML="";
+  const mk=(n,label,color,icon)=>{
+    const b=document.createElement("button");
+    b.className="matbtn"+(state.mat===n?" on":""); b.dataset.m=n;
+    b.innerHTML='<span class="dot" style="background:'+color+'"></span>'+(icon?icon+" ":"")+label;
+    b.onclick=()=>{state.mat=n; render();};
+    box.appendChild(b);
+  };
+  mk("Tout","Tout","#16213C","");
+  mats.forEach(n=>{
+    const src = (PROG[state.lv]&&PROG[state.lv].matieres.find(x=>x.n===n)) || {c:"#16213C",e:""};
+    mk(n,n,src.c,src.e);
+  });
+}
+
+/* ---- rendu principal ---- */
+function render(){
+  buildMats();
+  document.querySelectorAll(".lvbtn").forEach(b=>b.classList.toggle("on",b.dataset.lv===state.lv));
+
+  const q = state.q.trim().toLowerCase();
+  let list = VIDEOS.filter(v=>{
+    if(state.lv!=="Tout" && !v.lv.includes(state.lv)) return false;
+    if(state.mat!=="Tout" && v.m!==state.mat) return false;
+    if(q){
+      const hay=(v.t+" "+v.c+" "+v.th+" "+v.m).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const title = state.lv==="Tout" ? "Tout le primaire" : state.lv;
+  $("#lvTitle").textContent = title;
+  const p = PROG[state.lv];
+  $("#lvSub").textContent = state.lv==="Tout"
+    ? "Toutes les vidéos, du CP au CM2. Filtre par matière pour réduire."
+    : (p? p.resume : "");
+
+  // progression
+  const tot = list.length, vus = list.filter(v=>seen.has(v.i)).length;
+  const pct = tot? Math.round(100*vus/tot):0;
+  $("#progTxt").textContent = vus+" / "+tot;
+  $("#progBar").style.width = pct+"%";
+  $("#seenPct").textContent = pct+" % vu";
+
+  const box=$("#list"); box.innerHTML="";
+  if(!list.length){
+    box.innerHTML='<div class="empty"><b>Aucune vidéo pour cette recherche.</b>Essaie un mot plus simple : « fractions », « eau », « accord ».</div>';
+    renderProgramme(); return;
+  }
+  const groups={};
+  list.forEach(v=>{ (groups[v.m]=groups[v.m]||[]).push(v); });
+  Object.keys(groups).sort((a,b)=>MORDER.indexOf(a)-MORDER.indexOf(b)).forEach(m=>{
+    const meta = (state.lv!=="Tout" && p && p.matieres.find(x=>x.n===m)) || {c:"#16213C",e:"•",att:""};
+    const sec=document.createElement("section"); sec.className="matsec";
+    sec.innerHTML='<header><div class="ico" style="background:'+meta.c+'">'+meta.e+'</div>'+
+      '<div><h3>'+m+'</h3>'+(meta.att?'<p class="att">'+meta.att+'</p>':'')+'</div>'+
+      '<div class="n">'+groups[m].length+' vidéo'+(groups[m].length>1?'s':'')+'</div></header>';
+    const g=document.createElement("div"); g.className="grid";
+    groups[m].forEach(v=>g.appendChild(card(v)));
+    sec.appendChild(g); box.appendChild(sec);
+  });
+  renderProgramme();
+}
+
+function card(v){
+  const el=document.createElement("article");
+  el.className="card"+(seen.has(v.i)?" seen":"");
+  el.innerHTML=
+    '<div class="thumb"><span class="ph">▶</span><img loading="lazy" src="https://i.ytimg.com/vi/'+v.i+'/mqdefault.jpg" alt="" onerror="this.style.opacity=0">'+
+      '<span class="dur">'+fmt(v.d)+'</span>'+
+      '<button class="seenbtn" title="Marquer comme vue">✓</button>'+
+      '<div class="play"><span>▶</span></div></div>'+
+    '<div class="body"><div class="thm">'+v.th+'</div><h4>'+v.t+'</h4>'+
+      '<div class="meta"><span class="ch">'+v.c+'</span><span class="lvls">'+v.lv.map(l=>'<i>'+l+'</i>').join("")+'</span></div></div>';
+  el.onclick=e=>{
+    if(e.target.classList.contains("seenbtn")){
+      e.stopPropagation();
+      seen.has(v.i)? seen.delete(v.i): seen.add(v.i);
+      saveSeen(); el.classList.toggle("seen", seen.has(v.i)); updateProg(); return;
+    }
+    openVideo(v);
+  };
+  return el;
+}
+
+function updateProg(){
+  const q=state.q.trim().toLowerCase();
+  const list=VIDEOS.filter(v=>(state.lv==="Tout"||v.lv.includes(state.lv))&&(state.mat==="Tout"||v.m===state.mat)&&
+    (!q||(v.t+" "+v.c+" "+v.th+" "+v.m).toLowerCase().includes(q)));
+  const vus=list.filter(v=>seen.has(v.i)).length;
+  $("#progTxt").textContent=vus+" / "+list.length;
+  const pct=list.length?Math.round(100*vus/list.length):0;
+  $("#progBar").style.width=pct+"%"; $("#seenPct").textContent=pct+" % vu";
+}
+
+/* ---- modal ---- */
+let current=null;
+function openVideo(v){
+  current=v;
+  $("#mTitle").textContent=v.t;
+  $("#mMeta").textContent=v.c+" · "+fmt(v.d)+" · "+v.th+" · "+v.lv.join(", ");
+  $("#mFrame").src="https://www.youtube-nocookie.com/embed/"+v.i+"?autoplay=1&rel=0&modestbranding=1";
+  $("#mLink").href="https://www.youtube.com/watch?v="+v.i;
+  $("#mSeen").classList.toggle("on",seen.has(v.i));
+  $("#mSeen").textContent = seen.has(v.i)? "✓ Vue" : "✓ Marquer comme vue";
+  $("#modal").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+function closeVideo(){
+  $("#modal").classList.remove("open");
+  $("#mFrame").src="";
+  document.body.style.overflow="";
+  render();
+}
+$("#mClose").onclick=closeVideo;
+$("#modal").onclick=e=>{ if(e.target.id==="modal") closeVideo(); };
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&current) closeVideo(); });
+$("#mSeen").onclick=()=>{
+  if(!current) return;
+  seen.has(current.i)? seen.delete(current.i): seen.add(current.i);
+  saveSeen();
+  $("#mSeen").classList.toggle("on",seen.has(current.i));
+  $("#mSeen").textContent = seen.has(current.i)? "✓ Vue" : "✓ Marquer comme vue";
+};
+
+/* ---- programme ---- */
+function renderProgramme(){
+  const p=PROG[state.lv];
+  if(!p){ $("#progH").textContent="Le programme, de la 6e à la 3e"; $("#progBody").innerHTML=
+    '<div class="chans"><div class="chan"><b>Choisis un niveau</b><span>Le programme s\'affiche niveau par niveau : 6e, 5e, 4e ou 3e.</span></div></div>'; return; }
+  $("#progH").textContent="Ce que l'élève doit savoir en fin de "+state.lv;
+  let h='<table class="progtable"><thead><tr><th style="width:150px">Matière</th><th>Domaines</th><th style="width:32%">Ce qu\'on attend</th></tr></thead><tbody>';
+  p.matieres.forEach(m=>{
+    h+='<tr><td class="m"><span class="pill"><span style="color:'+m.c+'">●</span>'+m.n+'</span></td><td><ul>'+
+       m.dom.map(d=>'<li><b>'+d[0]+'</b> — '+d[1]+'</li>').join("")+'</ul></td><td>'+m.att+'</td></tr>';
+  });
+  h+='</tbody></table>';
+  $("#progBody").innerHTML=h;
+}
+
+/* ---- chaînes ---- */
+const CH=[["Les Bons Profs", "Toutes les matières, de la 6e à la 3e. Une notion, un exemple, cinq minutes. La colonne vertébrale du site.", "https://www.youtube.com/@lesbonsprofs"], ["Yvan Monka", "La référence en maths. Un cours posé, un exemple, un exercice : toujours la même structure, on sait où on va.", "https://www.youtube.com/@YMONKA"], ["Paul Olivier", "Physique-chimie. Fiches de révision et méthodes de calcul très lisibles, avec les formules écrites proprement.", "https://www.youtube.com/@ProfPaulOlivier"], ["Éditions Lelivrescolaire.fr", "Les animations des manuels scolaires : courtes, exactes, pile au programme.", "https://www.youtube.com/@EditionsLelivrescolaire"], ["Julien Ferrand", "Histoire-géo et EMC, cours complets par niveau. À voir quand une séance a été ratée.", "https://www.youtube.com/@JulienFerrand"], ["Madame SVT", "SVT 4e-3e : séismes, volcans, génétique. Clair, sans bavardage.", "https://www.youtube.com/@MadameSVT"], ["La Classe d'Histoire", "Des récits d'histoire courts et bien racontés, pour retenir la chronologie.", "https://www.youtube.com/@LaclassedHistoire"], ["1 jour, 1 question", "Une minute trente pour une notion d'EMC, de géo ou d'actualité. Parfait pour ouvrir un débat.", "https://www.youtube.com/@1jour1questionFR"], ["SchoolMouv", "Fiches et vidéos de révision par niveau, à revoir avant un contrôle.", "https://www.youtube.com/@SchoolMouv"], ["L'Antiseche", "Formats très courts, pour la veille d'un contrôle : on réactive, on ne découvre pas.", "https://www.youtube.com/@LAntiseche"], ["Les Tutos de Huito", "Anglais : conjugaison et grammaire expliquées en français, sans jargon.", "https://www.youtube.com/@LesTutosdeHuito"], ["Maï Lan Study", "Méthodes de français : rédiger, analyser un texte, organiser son travail.", "https://www.youtube.com/@mailanstudy"]];
+$("#chans").innerHTML=CH.map(c=>'<a class="chan" href="'+c[2]+'" target="_blank" rel="noopener"><em>chaîne</em><b>'+c[0]+'</b><span>'+c[1]+'</span></a>').join("");
+
+/* ---- recherche ---- */
+let tm;
+$("#q").addEventListener("input",e=>{
+  clearTimeout(tm);
+  tm=setTimeout(()=>{ state.q=e.target.value; render(); },140);
+});
+
+/* ---- init ---- */
+$("#sVid").textContent = VIDEOS.length;
+$("#sCh").textContent = new Set(VIDEOS.map(v=>v.c)).size;
+$("#sTh").textContent = new Set(VIDEOS.map(v=>v.m+"|"+v.th)).size;
+render();
+</script>
+</body>
+</html>
